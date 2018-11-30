@@ -6,3 +6,4 @@ lib
 pip-selfcheck.json
 
 !.gitignore
+src/db.sqlite3
