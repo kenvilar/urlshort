@@ -1,9 +1,10 @@
 import random
+import string
 
 from django.db import models
 
 
-def code_generator(size=6, chars='abcdefghijklmnopqrstuvwxyz'):
+def code_generator(size=6, chars=string.ascii_lowercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -16,6 +17,7 @@ class UrlShort(models.Model):
 
     def save(self, *args, **kwargs):
         print('override save')
+        self.shortcode = code_generator()
         super(UrlShort, self).save(*args, **kwargs)
 
     def __str__(self):
