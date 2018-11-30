@@ -20,6 +20,6 @@ from shortener.views import urlshort_redirect_view, UrlShortClassBasedView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^view-1/$', urlshort_redirect_view),
-    url(r'^view-2/$', UrlShortClassBasedView.as_view()),
+    url(r'^a/(?P<shortcode>[\w-]+)/$', urlshort_redirect_view),
+    url(r'^b/(?P<shortcode>[\w-]+)/$', UrlShortClassBasedView.as_view()),
 ]
