@@ -1,9 +1,10 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from .models import UrlShort
 from .forms import SubmitUrlForm
+from analytics.models import ClickEvent
 
 
 # Create your views here.
@@ -48,6 +49,19 @@ class HomeView(View):
         return render(request, template, context)
 
 
+class URLRedirectView(View):  # class based view
+    def get(self, request, shortcode=None, *args, **kwargs):
+        print(shortcode)
+        qs = UrlShort.objects.filter(shortcode__iexact=shortcode)
+        print(qs)
+        if qs.count == 1 and qs.exists():
+            obj = qs.first()
+            # obj = get_object_or_404(UrlShort, shortcode__iexact=shortcode)
+            print(ClickEvent.objects.create_event(obj))
+            return HttpResponseRedirect(obj.url)
+        raise Http404
+
+
 def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # function based view
     # (option 1) Plain way
     # obj_url = UrlShort.objects.get(shortcode=shortcode)
@@ -70,12 +84,6 @@ def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # functio
     obj_url = obj.url
 
     return HttpResponseRedirect(obj_url)
-
-
-class UrlShortClassBasedView(View):  # class based view
-    def get(self, request, shortcode=None, *args, **kwargs):
-        obj = get_object_or_404(UrlShort, shortcode=shortcode)
-        return HttpResponseRedirect(obj.url)
 
 
 def test_view(request):
