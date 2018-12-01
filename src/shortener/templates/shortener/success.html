@@ -4,7 +4,7 @@
 {% endblock title %}
 {% block content %}
 <div style="text-align: center;width: 800px;margin: 0 auto;">
-    <h1>Created!</h1>
+    <h1>Success!</h1>
     <p>{{ object.url }}</p>
     {% if object.clickevent %}
     <p>Count: {{ object.clickevent.count }}</p>
@@ -12,4 +12,4 @@
     <p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
     <a href="/" class="btn btn-light">+ New</a>
 </div>
-{% block content %}
+{% endblock content %}
