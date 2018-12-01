@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 
 from .utils import code_generator, create_shortcode
+from .validators import validate_url, validate_dot_com
 
 SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
 
@@ -25,7 +26,7 @@ class UrlShortManager(models.Manager):
 
 
 class UrlShort(models.Model):
-    url = models.CharField(max_length=220)
+    url = models.CharField(max_length=220, validators=[validate_url, validate_dot_com])
     shortcode = models.CharField(max_length=SHORTCODE_MAX, default='abc', unique=True, blank=True)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
