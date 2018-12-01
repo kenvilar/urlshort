@@ -23,6 +23,8 @@ class HomeView(View):
         return render(request, "shortener/home.html", context)
 
     def post(self, request, *args, **kwargs):
+        # TODO if url is inactive it should be render in a different template
+
         # print(request.POST)
         # print(request.POST.get("url"))
         # print(request.POST["url"])
@@ -73,7 +75,7 @@ def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # functio
 class UrlShortClassBasedView(View):  # class based view
     def get(self, request, shortcode=None, *args, **kwargs):
         obj = get_object_or_404(UrlShort, shortcode=shortcode)
-        return HttpResponse("Hello again {sc}".format(sc=obj.url))
+        return HttpResponseRedirect(obj.url)
 
 
 def test_view(request):

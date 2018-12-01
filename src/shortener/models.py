@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from .utils import code_generator, create_shortcode
 from .validators import validate_url, validate_dot_com
@@ -33,7 +34,6 @@ class UrlShort(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = UrlShortManager()
-    some_random = UrlShortManager()
 
     def save(self, *args, **kwargs):
         if self.shortcode == None or self.shortcode == "":
@@ -45,3 +45,7 @@ class UrlShort(models.Model):
 
     def __unicode__(self):
         return str(self.url)
+
+    def get_short_url(self):
+        url_path = reverse("scode", kwargs={"shortcode": self.shortcode})
+        return "http://localhost:8000" + url_path

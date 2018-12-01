@@ -21,6 +21,6 @@ from shortener.views import urlshort_redirect_view, UrlShortClassBasedView, test
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view()),
-    url(r'^(?P<shortcode>[\w-]{6,15})/$', UrlShortClassBasedView.as_view()),
+    url(r'^(?P<shortcode>[\w-]{6,15})/$', UrlShortClassBasedView.as_view(), name='scode'),
     # url(r'^(?P<shortcode>[\w-]{6,15})/$', urlshort_redirect_view),
 ]
