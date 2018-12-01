@@ -1,9 +1,19 @@
-<div style="width: 800px;margin: 0 auto">
-    <h1>{{ title }}</h1>
-    <form action="." method="POST">
-        {% csrf_token %}
-        <!--<input type="text" name="url" placeholder="Shorten your URL like https://kenvilar.com">-->
-        {{ form.as_p }}
-        <input type="submit" value="SHORTEN">
-    </form>
+{% extends "base.html" %}
+{% block title %}
+{{ block.super }}
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="text-center col-sm-12">
+            <h1>{{ title }}</h1>
+            <form action="." method="POST">
+                {% csrf_token %}
+                <!--<input type="text" name="url" placeholder="Shorten your URL like https://kenvilar.com">-->
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-primary" value="SHORTEN">
+            </form>
+        </div>
+    </div>
 </div>
+{% endblock content %}

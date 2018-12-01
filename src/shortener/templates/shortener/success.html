@@ -1,9 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+{{ object.get_short_url }} | {{ block.super }}
+{% endblock title %}
+{% block content %}
 <div style="text-align: center;width: 800px;margin: 0 auto;">
     <h1>Created!</h1>
     <p>{{ object.url }}</p>
     {% if object.clickevent %}
     <p>Count: {{ object.clickevent.count }}</p>
     {% endif %}
-    <p><a href="{{ {{ object.get_short_url }} }}">{{ object.get_short_url }}</a></p>
+    <p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
     <a href="/">+ New</a>
 </div>
+{% block content %}
