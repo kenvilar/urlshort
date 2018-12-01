@@ -16,11 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from shortener.views import urlshort_redirect_view, UrlShortClassBasedView, test_view
+from shortener.views import urlshort_redirect_view, UrlShortClassBasedView, test_view, HomeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^about123/$', test_view),
-    url(r'^(?P<shortcode>[\w-]{6,15})/$', urlshort_redirect_view),
-    url(r'^b/(?P<shortcode>[\w-]{6,15})/$', UrlShortClassBasedView.as_view()),
+    url(r'^$', HomeView.as_view()),
+    url(r'^(?P<shortcode>[\w-]{6,15})/$', UrlShortClassBasedView.as_view()),
+    # url(r'^(?P<shortcode>[\w-]{6,15})/$', urlshort_redirect_view),
 ]

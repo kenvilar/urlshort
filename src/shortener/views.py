@@ -30,6 +30,11 @@ def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # functio
     return HttpResponseRedirect(obj_url)
 
 
+class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "shortener/home.html", {})
+
+
 class UrlShortClassBasedView(View):  # class based view
     def get(self, request, shortcode=None, *args, **kwargs):
         obj = get_object_or_404(UrlShort, shortcode=shortcode)
