@@ -4,7 +4,14 @@ from .validators import validate_dot_com, validate_url
 
 
 class SubmitUrlForm(forms.Form):
-    url = forms.CharField(label="Submit URL", validators=[validate_url, validate_dot_com])
+    url = forms.CharField(
+        label="",
+        validators=[validate_url, validate_dot_com],
+        widget=forms.TextInput(attrs={
+            "placeholder": "Long URL",
+            "class": "form-control"
+        })
+    )
 
     # def clean(self):
     #     cleaned_data = super(SubmitUrlForm, self).clean()

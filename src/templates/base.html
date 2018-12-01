@@ -2,16 +2,29 @@
 <html lang="en">
 <head>
     <title>URL SHORT | {% block title %}Shorten that URL{% endblock title %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="//getbootstrap.com/docs/4.1/examples/cover/cover.css">
 </head>
-<body>
+<body class="text-center">
 
-{% block content %}
-{% endblock content %}
+<div class="d-flex w-100 h-100 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>Created by <a href="//kenvilar.com">Ken Vilar</a></p>
+        </div>
+    </footer>
+</div>
 </body>
 </html>
