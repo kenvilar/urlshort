@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 
@@ -27,10 +27,14 @@ def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # functio
     obj = get_object_or_404(UrlShort, shortcode=shortcode)
     obj_url = obj.url
 
-    return HttpResponse("Hello {sc}".format(sc=obj_url))
+    return HttpResponseRedirect(obj_url)
 
 
 class UrlShortClassBasedView(View):  # class based view
     def get(self, request, shortcode=None, *args, **kwargs):
         obj = get_object_or_404(UrlShort, shortcode=shortcode)
         return HttpResponse("Hello again {sc}".format(sc=obj.url))
+
+
+def test_view(request):
+    return HttpResponse("Some stuff")
