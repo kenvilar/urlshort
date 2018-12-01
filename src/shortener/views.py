@@ -54,12 +54,12 @@ class URLRedirectView(View):  # class based view
         print(shortcode)
         qs = UrlShort.objects.filter(shortcode__iexact=shortcode)
         print(qs)
-        if qs.count == 1 and qs.exists():
-            obj = qs.first()
-            # obj = get_object_or_404(UrlShort, shortcode__iexact=shortcode)
-            print(ClickEvent.objects.create_event(obj))
-            return HttpResponseRedirect(obj.url)
-        raise Http404
+        if qs.count != 1 and not qs.exists():
+            raise Http404
+        obj = qs.first()
+        # obj = get_object_or_404(UrlShort, shortcode__iexact=shortcode)
+        print(ClickEvent.objects.create_event(obj))
+        return HttpResponseRedirect(obj.url)
 
 
 def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # function based view

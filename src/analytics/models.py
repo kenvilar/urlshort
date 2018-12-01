@@ -6,7 +6,7 @@ from shortener.models import UrlShort
 
 class ClickEventManager(models.Manager):
     def create_event(self, instance):
-        if isinstance(UrlShort, instance):
+        if isinstance(instance, UrlShort):
             obj, created = self.get_or_create(shorturl=instance)
             obj.count += 1
             obj.save()
