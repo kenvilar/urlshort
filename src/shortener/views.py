@@ -3,9 +3,39 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from .models import UrlShort
+from .forms import SubmitUrlForm
 
 
 # Create your views here.
+def home_functionbasedview(request, *args, **kwargs):
+    if request.method == "POT":
+        print(request.POST)
+    return render(request, "shortener/home.html", {})
+
+
+class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        the_form = SubmitUrlForm()
+        context = {
+            "title": "URL SHORT",
+            "form": the_form
+        }
+        return render(request, "shortener/home.html", context)
+
+    def post(self, request, *args, **kwargs):
+        # print(request.POST)
+        # print(request.POST.get("url"))
+        # print(request.POST["url"])
+        form = SubmitUrlForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+        context = {
+            "title": "URL SHORT",
+            "form": form
+        }
+        return render(request, "shortener/home.html", context)
+
+
 def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # function based view
     # (option 1) Plain way
     # obj_url = UrlShort.objects.get(shortcode=shortcode)
@@ -28,11 +58,6 @@ def urlshort_redirect_view(request, shortcode=None, *args, **kwargs):  # functio
     obj_url = obj.url
 
     return HttpResponseRedirect(obj_url)
-
-
-class HomeView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, "shortener/home.html", {})
 
 
 class UrlShortClassBasedView(View):  # class based view
